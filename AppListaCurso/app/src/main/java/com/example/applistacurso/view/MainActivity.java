@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
             //ssss
-            /ss
+            //ss
             public void onClick(View v) {
                 String nome, sobrenome, curso, telefone;
                 nome = editNome.getText().toString();
