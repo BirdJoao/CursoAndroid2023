@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
+            //ssss
+            //ss
             public void onClick(View v) {
                 String nome, sobrenome, curso, telefone;
                 nome = editNome.getText().toString();
@@ -72,9 +74,12 @@ public class MainActivity extends AppCompatActivity {
                 curso = editCurso.getText().toString();
                 telefone = editTelefone.getText().toString();
 
+
                 Toast.makeText(MainActivity.this, nome +" " + sobrenome + " Cursando o curso " + curso + " contato: " +telefone, Toast.LENGTH_SHORT).show();
 
                 controller.salvar(pessoa);
+
+                Toast.makeText(MainActivity.this, nome + " " + sobrenome + " Cursando o curso " + curso + " contato: " + telefone, Toast.LENGTH_SHORT).show();
             }
         });
 
