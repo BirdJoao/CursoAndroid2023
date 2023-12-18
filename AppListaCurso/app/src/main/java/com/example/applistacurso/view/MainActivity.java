@@ -2,6 +2,7 @@ package com.example.applistacurso.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,8 @@ import com.example.applistacurso.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences preferences;
+    public static final String NOME_PREFERENCES = "pref_listavip";
     EditText editNome, editSobrenome, editCurso, editTelefone;
     Button btnSalvar, btnLimpar, btnFechar;
     Pessoa pessoa;
@@ -23,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preferences = getSharedPreferences(NOME_PREFERENCES, 0);
+        SharedPreferences.Editor listaVip = preferences.edit();
 
         editNome = findViewById(R.id.editNome);
         editSobrenome = findViewById(R.id.editSobrenome);
@@ -77,9 +83,13 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(MainActivity.this, nome +" " + sobrenome + " Cursando o curso " + curso + " contato: " +telefone, Toast.LENGTH_SHORT).show();
 
-                controller.salvar(pessoa);
+                listaVip.putString("primeiroNome", pessoa.getNome());
+                listaVip.putString("sobrenome", pessoa.getSobrenome());
+                listaVip.putString("curso", pessoa.getCurso());
+                listaVip.putString("telefone", pessoa.getTelefone());
+                listaVip.apply();
 
-                Toast.makeText(MainActivity.this, nome + " " + sobrenome + " Cursando o curso " + curso + " contato: " + telefone, Toast.LENGTH_SHORT).show();
+                controller.salvar(pessoa);
             }
         });
 
