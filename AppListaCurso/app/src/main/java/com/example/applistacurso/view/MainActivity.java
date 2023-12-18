@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.applistacurso.R;
+import com.example.applistacurso.controller.PessoaController;
 import com.example.applistacurso.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editNome, editSobrenome, editCurso, editTelefone;
     Button btnSalvar, btnLimpar, btnFechar;
     Pessoa pessoa;
+    PessoaController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         pessoa = new Pessoa();
+        controller = new PessoaController();
         pessoa.setNome("João");
         pessoa.setSobrenome("Marques");
         pessoa.setCurso("Java");
@@ -70,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 telefone = editTelefone.getText().toString();
 
                 Toast.makeText(MainActivity.this, nome +" " + sobrenome + " Cursando o curso " + curso + " contato: " +telefone, Toast.LENGTH_SHORT).show();
+
+                controller.salvar(pessoa);
             }
         });
 
