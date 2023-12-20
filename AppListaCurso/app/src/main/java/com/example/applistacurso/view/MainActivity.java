@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.applistacurso.R;
@@ -22,9 +24,11 @@ public class MainActivity extends AppCompatActivity {
     EditText editNome, editSobrenome, editCurso, editTelefone;
     Button btnSalvar, btnLimpar, btnFechar;
     Pessoa pessoa;
-    List<CursoDesejado> listaDeCurso;
+    List<String> nomeDosCursos;
     PessoaController controller;
     CursoController cursoController;
+
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
         controller = new PessoaController(MainActivity.this);
         controller.toString();
-
-        cursoController = new CursoController();
-        listaDeCurso = cursoController.getListaDeCursos();
 
         pessoa = new Pessoa();
         controller.buscar(pessoa);
@@ -53,6 +54,20 @@ public class MainActivity extends AppCompatActivity {
         editSobrenome.setText(pessoa.getSobrenome());
         editCurso.setText(pessoa.getCurso());
         editTelefone.setText(pessoa.getTelefone());
+
+        //Para o Spinner dar certo
+        //Adapter, Layout, Injetar o Adpater ao spinenr - A lista sera gerada
+        cursoController = new CursoController();
+        nomeDosCursos = cursoController.dadosParaSpinner();
+        spinner = findViewById(R.id.spinner);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                cursoController.dadosParaSpinner());
+
+        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+
+        spinner.setAdapter(adapter);
+
 
         btnFechar.setOnClickListener(new View.OnClickListener() {
             @Override
