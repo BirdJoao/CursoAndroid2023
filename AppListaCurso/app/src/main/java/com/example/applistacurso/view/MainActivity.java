@@ -30,21 +30,23 @@ public class MainActivity extends AppCompatActivity {
         preferences = getSharedPreferences(NOME_PREFERENCES, 0);
         SharedPreferences.Editor listaVip = preferences.edit();
 
+        controller = new PessoaController();
+        controller.toString();
+
+        pessoa = new Pessoa();
+        pessoa.setNome(preferences.getString("primeiroNome","NA"));
+        pessoa.setSobrenome(preferences.getString("sobrenome","NA"));
+        pessoa.setCurso(preferences.getString("curso","NA"));
+        pessoa.setTelefone(preferences.getString("telefone","NA "));
+
         editNome = findViewById(R.id.editNome);
         editSobrenome = findViewById(R.id.editSobrenome);
         editCurso = findViewById(R.id.editCurso);
         editTelefone = findViewById(R.id.editTelefone);
+
         btnLimpar = findViewById(R.id.buttonLimpar);
         btnFechar = findViewById(R.id.buttonFechar);
         btnSalvar = findViewById(R.id.buttonSalvar);
-
-
-        pessoa = new Pessoa();
-        controller = new PessoaController();
-        pessoa.setNome("João");
-        pessoa.setSobrenome("Marques");
-        pessoa.setCurso("Java");
-        pessoa.setTelefone("14998005451");
 
         editNome.setText(pessoa.getNome());
         editSobrenome.setText(pessoa.getSobrenome());
@@ -71,17 +73,14 @@ public class MainActivity extends AppCompatActivity {
 
         btnSalvar.setOnClickListener(new View.OnClickListener() {
             @Override
-            //ssss
-            //ss
             public void onClick(View v) {
-                String nome, sobrenome, curso, telefone;
-                nome = editNome.getText().toString();
-                sobrenome = editSobrenome.getText().toString();
-                curso = editCurso.getText().toString();
-                telefone = editTelefone.getText().toString();
+                pessoa.setNome(editNome.getText().toString());
+                pessoa.setSobrenome(editSobrenome.getText().toString());
+                pessoa.setCurso(editCurso.getText().toString());
+                pessoa.setTelefone(editTelefone.getText().toString());
 
 
-                Toast.makeText(MainActivity.this, nome +" " + sobrenome + " Cursando o curso " + curso + " contato: " +telefone, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Salvo " +pessoa.toString(), Toast.LENGTH_SHORT).show();
 
                 listaVip.putString("primeiroNome", pessoa.getNome());
                 listaVip.putString("sobrenome", pessoa.getSobrenome());
