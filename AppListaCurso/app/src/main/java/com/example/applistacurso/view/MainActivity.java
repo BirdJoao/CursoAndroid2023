@@ -10,15 +10,21 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.applistacurso.R;
+import com.example.applistacurso.controller.CursoController;
 import com.example.applistacurso.controller.PessoaController;
+import com.example.applistacurso.model.CursoDesejado;
 import com.example.applistacurso.model.Pessoa;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText editNome, editSobrenome, editCurso, editTelefone;
     Button btnSalvar, btnLimpar, btnFechar;
     Pessoa pessoa;
+    List<CursoDesejado> listaDeCurso;
     PessoaController controller;
+    CursoController cursoController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
         controller = new PessoaController(MainActivity.this);
         controller.toString();
+
+        cursoController = new CursoController();
+        listaDeCurso = cursoController.getListaDeCursos();
 
         pessoa = new Pessoa();
         controller.buscar(pessoa);
