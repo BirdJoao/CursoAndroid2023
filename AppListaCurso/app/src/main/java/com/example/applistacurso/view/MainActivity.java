@@ -15,9 +15,6 @@ import com.example.applistacurso.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences.Editor listaVip;
-    SharedPreferences preferences;
-    public static final String NOME_PREFERENCES = "pref_listavip";
     EditText editNome, editSobrenome, editCurso, editTelefone;
     Button btnSalvar, btnLimpar, btnFechar;
     Pessoa pessoa;
@@ -28,17 +25,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        preferences = getSharedPreferences(NOME_PREFERENCES, 0);
-        listaVip = preferences.edit();
-
-        controller = new PessoaController();
+        controller = new PessoaController(MainActivity.this);
         controller.toString();
 
         pessoa = new Pessoa();
-        pessoa.setNome(preferences.getString("primeiroNome","NA"));
-        pessoa.setSobrenome(preferences.getString("sobrenome","NA"));
-        pessoa.setCurso(preferences.getString("curso","NA"));
-        pessoa.setTelefone(preferences.getString("telefone","NA "));
+        controller.buscar(pessoa);
 
         editNome = findViewById(R.id.editNome);
         editSobrenome = findViewById(R.id.editSobrenome);
@@ -70,10 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 editCurso.setText("");
                 editTelefone.setText("");
 
-                //Limoando shared de preferencias
-                listaVip.clear();
-                listaVip.apply();
-
+                controller.limpar();
             }
         });
 
@@ -88,11 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast.makeText(MainActivity.this, "Salvo " +pessoa.toString(), Toast.LENGTH_SHORT).show();
 
-                listaVip.putString("primeiroNome", pessoa.getNome());
-                listaVip.putString("sobrenome", pessoa.getSobrenome());
-                listaVip.putString("curso", pessoa.getCurso());
-                listaVip.putString("telefone", pessoa.getTelefone());
-                listaVip.apply();
 
                 controller.salvar(pessoa);
             }
